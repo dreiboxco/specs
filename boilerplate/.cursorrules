@@ -1,0 +1,156 @@
+# Cursor Rules - Spec Driven Development
+
+## Linguagem e comunicação
+- Responder sempre em português (pt-BR).
+
+## Fonte da verdade e fluxo SDD
+- Especificar antes de codificar. Só gerar/alterar código a partir de specs em `specs/` validadas.
+- Não implementar feature sem `*.spec.md` completa e checada pelo `specs/checklist.md`.
+- Antes de iniciar implementação, passar a spec pelo checklist; se houver item reprovado, solicitar atualização da spec ao usuário e oferecer-se para fazê-la, pedindo apenas revisão.
+
+## Fluxo obrigatório de consulta de specs
+- **SEMPRE**, antes de implementar qualquer funcionalidade, feature ou mudança solicitada pelo usuário:
+  1. Consultar as specs existentes em `specs/` para verificar se a funcionalidade já está especificada.
+  2. Se a funcionalidade **estiver especificada** em uma spec válida:
+     - Verificar se a spec está completa e passa pelo checklist.
+     - Se estiver completa, **implementar diretamente** conforme a spec.
+     - Se houver pendências no checklist, solicitar atualização da spec ao usuário antes de implementar.
+  3. Se a funcionalidade **NÃO estiver especificada**:
+     - Identificar qual spec existente deve ser ajustada (se aplicável) OU se é necessário criar uma nova spec.
+     - Se ficar em dúvida sobre qual spec ajustar ou se deve criar nova, **PERGUNTAR ao usuário** qual spec ajustar ou se deve criar nova.
+     - Propor a criação/ajuste da spec e **AGUARDAR CONFIRMAÇÃO EXPLÍCITA do usuário** antes de implementar.
+  4. **NUNCA implementar código sem ter uma spec válida e confirmada pelo usuário** (exceto para correções de bugs críticos ou ajustes técnicos menores que não alterem comportamento funcional).
+  5. Se o usuário solicitar algo que requer mudança em spec existente, mostrar o que será alterado na spec e aguardar aprovação antes de modificar tanto a spec quanto o código.
+
+## Estrutura e diretórios
+- Respeitar a estrutura definida em `specs/00-architecture.spec.md`. Não criar novas pastas fora do acordado.
+- `specs/` não recebe código executável.
+
+## Especificações: Abstração de Detalhes de Implementação
+- **NUNCA incluir detalhes de implementação técnica nas specs de funcionalidades** (arquivos `01-*.spec.md`, `02-*.spec.md`, etc.).
+- **Detalhes de stack técnica** (linguagem, ferramentas de build, comandos de build específicos) devem estar **APENAS** em `00-stack.spec.md`.
+- **O que NÃO deve aparecer em specs de funcionalidades:**
+  - Nomes de ferramentas de build específicas (ex.: `goreleaser`, `go build`, `npm run`, `webpack`, `cargo build`, etc.)
+  - Comandos de build específicos (ex.: `go build`, `npm run build`, `make build`, etc.)
+  - Nomes de linguagens/runtimes específicos em contexto de implementação (ex.: "binário gerado via go build", "compilado com Go", etc.)
+  - Detalhes de ferramentas de desenvolvimento (ex.: "executar golangci-lint", "rodar gofmt", etc.)
+  - Bibliotecas específicas de implementação (ex.: "usar biblioteca X", etc.)
+- **O que DEVE aparecer em specs de funcionalidades:**
+  - Comportamento funcional (o que o comando faz, não como é construído)
+  - Contratos e interfaces (inputs, outputs, formatos)
+  - Requisitos não funcionais (latência, compatibilidade de plataforma, etc.) - mas sem mencionar ferramentas específicas
+  - Referências genéricas quando necessário (ex.: "binário único", "compilado estaticamente", "sem dependências externas", "artefato portável")
+- **Exceções:**
+  - Specs de stack técnica (`00-stack.spec.md`) podem e devem ter detalhes técnicos
+  - Specs de CI/CD podem mencionar ferramentas de CI/CD, mas devem referenciar `00-stack.spec.md` para detalhes de build
+- **Quando em dúvida:** Se precisar mencionar algo técnico, referenciar `00-stack.spec.md` ao invés de detalhar na spec de funcionalidade.
+
+## Guardrails de dependências
+- Evitar adicionar dependências novas. Se inevitável, justificar na spec ou em ADR antes de incluir.
+
+## UX de CLI
+- Mensagens curtas e acionáveis.
+- Help sempre disponível (`--help`).
+- Códigos de saída padronizados: 0 ok; 1 erro genérico; 2 input inválido; 3 rede; 4 auth; 5 update.
+- stdout reservado ao output do comando; stderr para erros/logs.
+
+## Segurança
+- Nunca logar ou imprimir segredos/tokens.
+- Não escrever/alterar arquivos de configuração sem confirmação explícita do usuário.
+- Armazenamento seguro para tokens/confs conforme especificação (usar XDG-compliant paths quando aplicável).
+
+## Observabilidade e NFRs
+- `--debug` opcional para logs verbosos quando previsto na spec.
+- Seguir metas de latência/portabilidade da spec; preferir binário único se a stack permitir.
+
+## Instalação e auto-update
+- Seguir estratégia descrita na arquitetura (ex.: `curl | sh`, checksum/assinatura, rollback seguro).
+- Não mudar instalador/update sem spec/ADR.
+
+## Testes e critérios de aceite
+- Gerar/rodar testes previstos em cada spec (unidade, integração, e2e/instalador).
+- Validar critérios de aceite antes de concluir a tarefa.
+
+## Migração / rollback
+- Qualquer mudança de estado/local/config requer plano de migração e rollback na spec.
+
+## Compatibilidade
+- Manter suporte a SO/CPU definidos (macOS/Linux; Windows só se explicitado).
+- Evitar paths hardcoded; respeitar XDG quando aplicável.
+
+## Documentação (README)
+- **Toda documentação geral deve ser centralizada e mantida APENAS em `README.md` na raiz do projeto.**
+- **NUNCA criar arquivos de documentação separados** (ex.: `INSTALL.md`, `DEVELOPMENT.md`, `CONTRIBUTING.md`, `docs/*.md`, etc.) a menos que seja explicitamente solicitado pelo usuário.
+- **Estruturar o `README.md` em seções claras e organizadas:**
+  - Visão Geral
+  - Instalação (com todas as opções, variáveis de ambiente, troubleshooting)
+  - Uso (comandos básicos, exemplos)
+  - Comandos Disponíveis (lista completa)
+  - Atualização (como atualizar o CLI)
+  - Desenvolvimento (build, testes, formatação)
+  - CI/CD e Releases (se aplicável)
+  - Compatibilidade (plataformas suportadas)
+  - Especificações (referências às specs)
+  - Estrutura do Projeto
+  - Contribuindo (se aplicável)
+- **Ao finalizar qualquer entrega/geração, atualizar `README.md` refletindo o estado atual:**
+  - Adicionar novos comandos na seção "Comandos Disponíveis"
+  - Atualizar instruções de instalação se houver mudanças
+  - Documentar novas funcionalidades na seção apropriada
+  - Atualizar exemplos de uso
+- **Exceções:**
+  - Specs em `specs/` (são documentação técnica de especificação, não documentação de usuário)
+  - Arquivos de configuração com comentários (ex.: `.goreleaser.yml`, `.github/workflows/*.yml`)
+  - Comentários inline no código
+- **Se houver documentação dispersa em outros arquivos, consolidar no `README.md` e remover os arquivos separados.**
+
+## Commits automatizados
+- Quando o usuário digitar "commit" no Cursor, gerar commit com mensagem explicativa em português do Brasil do que foi feito e aplicar na branch atual correta. Confirmar que não há pendências de checklist/spec antes de commitar.
+
+## Commits de specs
+- **NUNCA commitar automaticamente arquivos em `specs/`** (arquivos `*.spec.md`) **após criar ou modificar uma spec**.
+- Ao criar ou modificar uma spec, **NÃO commitar automaticamente**. Apenas informar o usuário sobre as mudanças.
+- Se o usuário solicitar commit explicitamente (ex.: "commit"), **incluir as specs no commit normalmente** junto com o código.
+- Não é necessário perguntar separadamente sobre specs quando o usuário pedir commit - incluir tudo no mesmo commit.
+- A regra é apenas para **não commitar automaticamente após criar/modificar specs** sem o usuário pedir.
+
+## Gerenciamento de branches para implementação de specs
+- **Ao iniciar implementação de uma nova spec:**
+  - Verificar qual spec será implementada (ex.: `04-installer.spec.md`).
+  - Extrair número e nome da spec (ex.: `04-installer`).
+  - Criar branch `feature/04-installer` (formato: `feature/{numero}-{nome-sem-extensao}`).
+  - Fazer checkout para a nova branch antes de começar a implementação.
+  - Informar ao usuário sobre a criação da branch.
+- **Ao mudar de spec (implementar outra spec diferente):**
+  - Verificar se há uma branch de feature ativa.
+  - **PERGUNTAR ao usuário** se deseja fazer merge da branch atual para `development` antes de mudar.
+  - Se o usuário confirmar merge:
+    - Fazer merge da branch atual para `development`.
+    - Fazer checkout para `development`.
+    - Criar nova branch para a próxima spec.
+  - Se o usuário não quiser fazer merge, manter branch atual e criar nova branch para a próxima spec.
+  - Sempre informar ao usuário sobre a mudança de branch e o estado atual.
+- **Nomenclatura de branches:**
+  - Formato: `feature/{numero}-{nome-sem-extensao}`
+  - Exemplos: `feature/01-version`, `feature/02-update`, `feature/04-installer`
+  - Remover extensão `.spec.md` e hífens extras do nome da spec.
+
+## Gerenciamento de Checklist nas Specs
+- **Ao implementar uma funcionalidade especificada:**
+  - Após concluir a implementação e validar que todos os critérios de aceite foram atendidos, **marcar automaticamente todos os itens do checklist** na spec correspondente.
+  - Atualizar o checklist da spec mudando `- [ ]` para `- [x]` para cada item que foi implementado e validado.
+  - Se algum item do checklist não se aplica à implementação (ex.: "Migração/rollback" em comandos que não alteram estado), marcar como `- [x]` com uma nota explicativa ou deixar marcado se já estava assim.
+  - **Nunca marcar itens do checklist como concluídos antes de implementar e validar** a funcionalidade correspondente.
+  - Se a implementação estiver parcial (ex.: apenas alguns requisitos foram implementados), marcar apenas os itens correspondentes aos requisitos implementados.
+- **Formato do checklist:**
+  - Todos os checklists devem usar o formato padronizado: `- [ ]` para pendente e `- [x]` para concluído.
+  - O checklist deve estar localizado no final da spec, após a seção "Abertos / Fora de Escopo".
+  - O checklist deve conter exatamente 6 itens conforme o template padrão.
+- **Validação de status:**
+  - O comando de validação (se existir) verifica automaticamente se todos os itens do checklist estão marcados para determinar se a spec está "completa" ou "incompleta".
+  - Uma spec só é considerada completa se: (1) possui todas as seções obrigatórias E (2) todos os itens do checklist estão marcados como `- [x]`.
+- **Comandos úteis para validação (se aplicável ao projeto):**
+  - Comando de validação - Valida uma ou todas as specs contra o checklist formal
+  - Comando de verificação - Verifica consistência estrutural (formato, numeração, links, referências)
+  - Comando de listagem - Lista todas as specs com status (completa/incompleta)
+

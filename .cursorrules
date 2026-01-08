@@ -104,6 +104,30 @@
   - Comentários inline no código
 - **Se houver documentação dispersa em outros arquivos, consolidar no `README.md` e remover os arquivos separados.**
 
+## Versionamento e Build
+
+- **Incremento automático de versão:**
+  - Durante build de release, versão deve ser incrementada automaticamente no arquivo `VERSION`
+  - Incremento padrão: PATCH (0.0.1 → 0.0.2)
+  - Arquivo `VERSION` deve ser atualizado antes do build
+  - Versão deve seguir formato semântico (MAJOR.MINOR.PATCH)
+
+- **Criação de tags Git:**
+  - Após incremento de versão, tag Git deve ser criada automaticamente
+  - Formato da tag: `v{MAJOR}.{MINOR}.{PATCH}` (ex.: `v0.0.2`)
+  - Tag deve ser criada localmente e enviada para repositório remoto
+  - Mensagem da tag: "Release v{versão}"
+
+- **Integração CI/CD:**
+  - GitHub Actions deve ser acionado automaticamente quando tag é criada
+  - Workflow deve executar build para todas as plataformas alvo
+  - Workflow deve criar release no GitHub com artefatos e checksums SHA256
+
+- **Comando de versão:**
+  - Comando `specs version` deve exibir versão atual do CLI
+  - Versão deve ser lida do arquivo `VERSION` ou injetada durante build
+  - Detalhes completos em `specs/01-version-control.spec.md`
+
 ## Commits automatizados
 - Quando o usuário digitar "commit" no Cursor, gerar commit com mensagem explicativa em português do Brasil do que foi feito e aplicar na branch atual correta. Confirmar que não há pendências de checklist/spec antes de commitar.
 

@@ -230,21 +230,21 @@ Esta especificação define o sistema de controle de versões do projeto, inclui
 
 ## 8. Critérios de Aceite
 
-- [ ] Arquivo `VERSION` existe na raiz com versão inicial `0.0.1`
-- [ ] Comando `specs version` exibe versão atual corretamente
-- [ ] Comando `specs version` funciona quando executado de qualquer diretório
-- [ ] Comando `specs version` exibe versão em formato semântico (MAJOR.MINOR.PATCH)
-- [ ] Comando `specs version --help` exibe ajuda do comando
-- [ ] Build de release incrementa versão PATCH automaticamente
-- [ ] Arquivo `VERSION` é atualizado após incremento
-- [ ] Tag Git é criada automaticamente após incremento
-- [ ] Tag é enviada para repositório remoto
-- [ ] GitHub Actions é acionado ao detectar push de tag
-- [ ] Workflow executa build para todas as plataformas alvo
-- [ ] Release é criado no GitHub com artefatos e checksums
-- [ ] Comando `specs version` retorna código 0 em caso de sucesso
-- [ ] Comando `specs version` retorna código 1 e mensagem de erro quando arquivo não existe
-- [ ] Versão exibida corresponde à versão do binário instalado
+- [x] Arquivo `VERSION` existe na raiz com versão inicial `0.0.1` (atual: 0.0.3)
+- [x] Comando `specs version` exibe versão atual corretamente
+- [x] Comando `specs version` funciona quando executado de qualquer diretório (busca VERSION recursivamente)
+- [x] Comando `specs version` exibe versão em formato semântico (MAJOR.MINOR.PATCH)
+- [x] Comando `specs version --help` exibe ajuda do comando
+- [x] Build de release incrementa versão PATCH automaticamente (script build-release.sh implementado)
+- [x] Arquivo `VERSION` é atualizado após incremento
+- [x] Tag Git é criada automaticamente após incremento (script implementado)
+- [x] Tag é enviada para repositório remoto (push manual necessário, conforme especificado)
+- [ ] GitHub Actions é acionado ao detectar push de tag (aguardando execução)
+- [ ] Workflow executa build para todas as plataformas alvo (aguardando execução)
+- [ ] Release é criado no GitHub com artefatos e checksums (aguardando execução)
+- [x] Comando `specs version` retorna código 0 em caso de sucesso
+- [x] Comando `specs version` retorna código 1 e mensagem de erro quando arquivo não existe
+- [x] Versão exibida corresponde à versão do binário instalado
 
 ## 9. Testes
 
@@ -332,10 +332,10 @@ Esta especificação define o sistema de controle de versões do projeto, inclui
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?
 

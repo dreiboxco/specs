@@ -268,21 +268,21 @@ Esta especificação define o comando `specs check` para verificar consistência
 
 ## 8. Critérios de Aceite
 
-- [ ] Comando `specs check` verifica consistência em `specs/` quando executado sem argumentos
-- [ ] Comando `specs check [diretório]` verifica diretório específico
-- [ ] Comando detecta gaps na numeração sequencial e reporta
-- [ ] Comando detecta numeração duplicada e reporta com arquivos envolvidos
-- [ ] Comando valida todos os links internos e detecta links quebrados
-- [ ] Comando detecta specs órfãs (referenciadas mas não existem)
-- [ ] Comando valida formato de nomes de arquivos (padrão correto)
-- [ ] Comando valida estrutura de diretórios
-- [ ] Comando exibe relatório categorizado de problemas encontrados
-- [ ] Comando retorna código 0 quando todas as verificações passam
-- [ ] Comando retorna código 1 quando há problemas de consistência
-- [ ] Comando retorna código 2 para erros de input inválido
-- [ ] Comando `specs check --help` exibe ajuda do comando
-- [ ] Comando reporta localização precisa de problemas (arquivo:linha quando aplicável)
-- [ ] Comando processa arquivos eficientemente (performance adequada)
+- [x] Comando `specs check` verifica consistência em `specs/` quando executado sem argumentos
+- [x] Comando `specs check [diretório]` verifica diretório específico
+- [x] Comando detecta gaps na numeração sequencial e reporta
+- [x] Comando detecta numeração duplicada e reporta com arquivos envolvidos
+- [x] Comando valida todos os links internos e detecta links quebrados
+- [x] Comando detecta specs órfãs (referenciadas mas não existem)
+- [x] Comando valida formato de nomes de arquivos (padrão correto)
+- [x] Comando valida estrutura de diretórios
+- [x] Comando exibe relatório categorizado de problemas encontrados
+- [x] Comando retorna código 0 quando todas as verificações passam
+- [x] Comando retorna código 1 quando há problemas de consistência
+- [x] Comando retorna código 2 para erros de input inválido
+- [x] Comando `specs check --help` exibe ajuda do comando
+- [x] Comando reporta localização precisa de problemas (arquivo:linha quando aplicável)
+- [x] Comando processa arquivos eficientemente (performance adequada)
 
 ## 9. Testes
 
@@ -365,9 +365,9 @@ Esta especificação define o comando `specs check` para verificar consistência
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?

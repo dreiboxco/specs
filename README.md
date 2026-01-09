@@ -1,10 +1,21 @@
-# Specs
+<p align="center">
+  <a href="https://github.com/dreibox/specs">
+    <h1>Specs</h1>
+  </a>
+</p>
 
-**Spec-driven development (SDD) CLI** para gerenciar projetos que seguem metodologia de especificação antes de implementação.
+<p align="center">Spec-driven development CLI for managing SDD projects.</p>
 
-[![Go Version](https://img.shields.io/badge/go-1.25.5-blue.svg)](https://golang.org/)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/dreibox/specs)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+<p align="center">
+  <a href="https://github.com/dreibox/specs/actions"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/dreibox/specs/ci.yml?style=flat-square" /></a>
+  <a href="https://golang.org/"><img alt="Go version" src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat-square&logo=go" /></a>
+  <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
+  <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square" /></a>
+  <a href="https://github.com/dreibox/specs/releases"><img alt="GitHub release" src="https://img.shields.io/github/v/release/dreibox/specs?style=flat-square" /></a>
+  <a href="https://github.com/dreibox/specs"><img alt="Platform" src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey.svg?style=flat-square" /></a>
+</p>
+
+---
 
 ## O que é Specs?
 
@@ -14,6 +25,8 @@
 - ✅ Validar especificações contra checklist formal
 - ✅ Listar e visualizar status de todas as specs do projeto
 - ✅ Verificar consistência estrutural (numeração, links, referências)
+- ✅ Gerenciar configuração personalizada do CLI
+- ✅ Visualizar dashboard interativo com progresso do projeto
 - ✅ Gerenciar o ciclo de vida completo de especificações
 
 ## Instalação
@@ -75,12 +88,48 @@ specs init
 * Use `template-default.spec.md` como base para criar novas specs
 * Execute `specs validate` para verificar se suas specs estão completas
 
-### 2. Validar Especificações
+### 2. Configurar o CLI (Opcional)
+
+Personalize o comportamento do CLI através de arquivo de configuração:
+
+```bash
+# Visualizar configuração atual
+specs config
+
+# Obter valor de uma opção
+specs config get specs.default_path
+
+# Definir caminho padrão para specs
+specs config set specs.default_path ./minhas-specs
+
+# Configurar exclusão de templates no dashboard
+specs config set specs.exclude_templates false
+```
+
+**Localização da configuração:**
+- `~/.config/specs/config.json` (ou `$XDG_CONFIG_HOME/specs/config.json`)
+
+**Opções disponíveis:**
+- `specs.default_path`: Caminho padrão para diretório de specs (padrão: `./specs`)
+- `specs.exclude_templates`: Excluir specs de template do dashboard (padrão: `true`)
+
+**Exemplo de configuração:**
+
+```json
+{
+  "specs": {
+    "default_path": "./documentation/specs",
+    "exclude_templates": true
+  }
+}
+```
+
+### 3. Validar Especificações
 
 Verifique se suas specs estão completas e prontas para implementação:
 
 ```bash
-# Validar todas as specs no diretório padrão (specs/)
+# Validar todas as specs no diretório padrão (ou configurado)
 specs validate
 
 # Validar diretório específico
@@ -97,7 +146,7 @@ specs validate specs/01-feature.spec.md
 * ✅ Completude do checklist (specs completas/incompletas)
 * ✅ Estrutura e formato de arquivos Markdown
 
-### 3. Listar Specs com Status
+### 4. Listar Specs com Status
 
 Visualize todas as specs do projeto e seu status:
 
@@ -134,7 +183,7 @@ Resumo:
   Com erros: 0
 ```
 
-### 4. Verificar Consistência Estrutural
+### 5. Verificar Consistência Estrutural
 
 Valide numeração, links e referências entre specs:
 
@@ -154,12 +203,12 @@ specs check ./minhas-specs
 * ✅ Formato de nomes de arquivos
 * ✅ Estrutura de diretórios
 
-### 5. Visualizar Dashboard
+### 6. Visualizar Dashboard
 
 Exiba um dashboard interativo com informações agregadas do projeto:
 
 ```bash
-# Dashboard de specs/ no diretório atual
+# Dashboard de specs/ no diretório atual (ou configurado)
 specs view
 
 # Dashboard de diretório específico
@@ -173,72 +222,8 @@ specs view ./minhas-specs
 * ✅ **Specs Completas**: Lista de specs finalizadas
 * 📋 **Specifications**: Lista completa com contagem de requirements por spec
 
-## Comandos Disponíveis
-
-### `specs init [diretório]`
-
-Inicializa um novo projeto SDD criando estrutura base e templates.
-
-**Flags:**
-- `--force`: Sobrescreve arquivos existentes sem confirmação
-- `--with-boilerplate`: Cria também diretório `boilerplate/` com templates genéricos
-
-**Exemplos:**
-```bash
-specs init                    # Inicializa no diretório atual
-specs init ./meu-projeto      # Inicializa em diretório específico
-specs init --force            # Sobrescreve arquivos existentes
-```
-
-### `specs validate [caminho]`
-
-Valida specs contra checklist formal e verifica estrutura.
-
-**Exemplos:**
-```bash
-specs validate                    # Valida specs/ no diretório atual
-specs validate specs/             # Valida diretório específico
-specs validate specs/01-test.spec.md  # Valida arquivo único
-```
-
-### `specs list [caminho]`
-
-Lista todas as specs com status (completa/incompleta/erro).
-
-**Flags:**
-- `--complete`, `--only-complete`: Lista apenas specs completas
-- `--incomplete`, `--only-incomplete`: Lista apenas specs incompletas
-- `--errors`: Lista apenas specs com erros
-
-**Exemplos:**
-```bash
-specs list                    # Lista todas as specs
-specs list --complete         # Apenas specs completas
-specs list --incomplete      # Apenas specs incompletas
-specs list specs/             # Lista specs em diretório específico
-```
-
-### `specs check [caminho]`
-
-Verifica consistência estrutural (numeração, links, referências).
-
-**Exemplos:**
-```bash
-specs check                   # Verifica specs/ no diretório atual
-specs check specs/            # Verifica diretório específico
-```
-
-### `specs view [caminho]`
-
-Exibe dashboard interativo com informações agregadas do projeto SDD.
-
-**Exemplos:**
-```bash
-specs view                    # Dashboard de specs/ no diretório atual
-specs view specs/             # Dashboard de diretório específico
-```
-
 **Output exemplo:**
+
 ```
 Specs Dashboard
 
@@ -266,6 +251,161 @@ Specifications:
   ...
 ```
 
+## Comandos Disponíveis
+
+### `specs init [diretório]`
+
+Inicializa um novo projeto SDD criando estrutura base e templates.
+
+**Flags:**
+- `--force`: Sobrescreve arquivos existentes sem confirmação
+- `--with-boilerplate`: Cria também diretório `boilerplate/` com templates genéricos
+
+**Exemplos:**
+```bash
+specs init                    # Inicializa no diretório atual
+specs init ./meu-projeto      # Inicializa em diretório específico
+specs init --force            # Sobrescreve arquivos existentes
+```
+
+### `specs config [subcomando]`
+
+Gerencia configuração do CLI. Permite personalizar comportamento padrão.
+
+**Subcomandos:**
+- `show` (padrão): Exibe configuração atual
+- `get <chave>`: Obtém valor de uma chave específica
+- `set <chave> <valor>`: Define valor de uma chave
+
+**Flags:**
+- `--help`: Exibe ajuda do comando
+
+**Chaves disponíveis:**
+- `specs.default_path`: Caminho padrão para diretório de specs (string, padrão: `./specs`)
+- `specs.exclude_templates`: Excluir specs de template do dashboard (boolean, padrão: `true`)
+
+**Exemplos:**
+```bash
+# Exibir configuração completa
+specs config
+specs config show
+
+# Obter valor de uma chave
+specs config get specs.default_path
+specs config get specs.exclude_templates
+
+# Definir valores
+specs config set specs.default_path ./documentation/specs
+specs config set specs.exclude_templates false
+
+# Ajuda
+specs config --help
+```
+
+**Localização da configuração:**
+- `~/.config/specs/config.json` (ou `$XDG_CONFIG_HOME/specs/config.json` se `XDG_CONFIG_HOME` estiver definido)
+- Arquivo criado automaticamente quando você define valores
+- Permissões: 0600 (apenas leitura/escrita pelo dono)
+
+**Formato do arquivo de configuração:**
+
+```json
+{
+  "specs": {
+    "default_path": "./specs",
+    "exclude_templates": true
+  }
+}
+```
+
+**Notas:**
+- Valores padrão são aplicados quando arquivo não existe
+- Configuração é validada ao carregar (formato JSON e tipos)
+- Erros de configuração resultam em fallback para valores padrão
+- Todos os comandos que aceitam caminho usam `specs.default_path` quando não especificado
+
+### `specs validate [caminho]`
+
+Valida specs contra checklist formal e verifica estrutura.
+
+**Exemplos:**
+```bash
+specs validate                    # Valida specs/ no diretório atual (ou configurado)
+specs validate specs/             # Valida diretório específico
+specs validate specs/01-test.spec.md  # Valida arquivo único
+```
+
+**O que é validado:**
+- Presença de todas as seções obrigatórias (1-12)
+- Formato do checklist (6 itens)
+- Completude do checklist
+- Estrutura e formato de arquivos Markdown
+
+**Códigos de saída:**
+- `0`: Sucesso (sem erros)
+- `1`: Erros encontrados
+- `2`: Erro de input inválido
+
+### `specs list [caminho]`
+
+Lista todas as specs com status (completa/incompleta/erro).
+
+**Flags:**
+- `--complete`, `--only-complete`: Lista apenas specs completas
+- `--incomplete`, `--only-incomplete`: Lista apenas specs incompletas
+- `--errors`: Lista apenas specs com erros
+
+**Exemplos:**
+```bash
+specs list                    # Lista todas as specs
+specs list --complete         # Apenas specs completas
+specs list --incomplete       # Apenas specs incompletas
+specs list --errors           # Apenas specs com erros
+specs list specs/             # Lista specs em diretório específico
+```
+
+### `specs check [caminho]`
+
+Verifica consistência estrutural (numeração, links, referências).
+
+**Exemplos:**
+```bash
+specs check                   # Verifica specs/ no diretório atual (ou configurado)
+specs check specs/            # Verifica diretório específico
+```
+
+**O que é verificado:**
+- Numeração sequencial (detecta gaps e duplicatas)
+- Links internos válidos (detecta links quebrados)
+- Specs órfãs (referenciadas mas não existem)
+- Formato de nomes de arquivos
+- Estrutura de diretórios
+
+**Códigos de saída:**
+- `0`: Sem problemas encontrados
+- `1`: Problemas encontrados
+- `2`: Erro de input inválido
+
+### `specs view [caminho]`
+
+Exibe dashboard interativo com informações agregadas do projeto SDD.
+
+**Exemplos:**
+```bash
+specs view                    # Dashboard de specs/ no diretório atual (ou configurado)
+specs view specs/             # Dashboard de diretório específico
+```
+
+**O que é exibido:**
+- **Summary**: Total de specs, requirements, progresso geral
+- **Specs em Progresso**: Lista com barras de progresso visuais
+- **Specs Completas**: Lista de specs finalizadas
+- **Specifications**: Lista completa com contagem de requirements por spec
+
+**Notas:**
+- Respeita configuração `specs.exclude_templates` (exclui `00-*.spec.md` e `template-default.spec.md` por padrão)
+- Calcula progresso baseado em itens do checklist marcados
+
 ### `specs version`
 
 Exibe a versão atual do CLI.
@@ -275,6 +415,82 @@ Exibe a versão atual do CLI.
 specs version
 # 0.0.3
 ```
+
+## Configuração
+
+O CLI Specs suporta configuração personalizada através de arquivo JSON em localização XDG-compliant.
+
+### Localização
+
+- **Linux/macOS**: `~/.config/specs/config.json`
+- **Com XDG_CONFIG_HOME**: `$XDG_CONFIG_HOME/specs/config.json`
+
+### Opções de Configuração
+
+#### `specs.default_path`
+
+Caminho padrão para diretório de specs usado quando nenhum caminho é especificado nos comandos.
+
+- **Tipo**: string
+- **Padrão**: `"./specs"`
+- **Exemplo**: `"./documentation/specs"`
+
+**Uso:**
+```bash
+specs config set specs.default_path ./minhas-specs
+```
+
+#### `specs.exclude_templates`
+
+Controla se specs de template devem ser excluídas do dashboard e cálculos de progresso.
+
+- **Tipo**: boolean
+- **Padrão**: `true`
+- **Valores**: `true` ou `false`
+
+**Uso:**
+```bash
+specs config set specs.exclude_templates false
+```
+
+**Specs excluídas quando `true`:**
+- Arquivos com prefixo `00-*` (ex: `00-architecture.spec.md`)
+- Arquivo `template-default.spec.md`
+
+### Exemplo Completo de Configuração
+
+```json
+{
+  "specs": {
+    "default_path": "./documentation/specs",
+    "exclude_templates": true
+  }
+}
+```
+
+### Gerenciamento de Configuração
+
+```bash
+# Visualizar configuração atual
+specs config
+
+# Obter valor específico
+specs config get specs.default_path
+
+# Definir valores
+specs config set specs.default_path ./custom-path
+specs config set specs.exclude_templates false
+
+# Remover arquivo para voltar aos padrões
+rm ~/.config/specs/config.json
+```
+
+### Valores Padrão
+
+Quando o arquivo de configuração não existe, os seguintes valores padrão são aplicados:
+
+- `specs.default_path`: `"./specs"`
+- `specs.exclude_templates`: `true`
 
 ## Estrutura de Projeto SDD
 
@@ -362,7 +578,7 @@ Toda spec deve conter:
 
 ### Pré-requisitos
 
-- Go 1.25.5 ou superior
+- Go 1.25+ ou superior
 - Git
 
 ### Build Local
@@ -389,6 +605,9 @@ go test -cover ./...
 
 # Testes verbosos
 go test -v ./...
+
+# Testes de um pacote específico
+go test ./internal/services/config/...
 ```
 
 ### Estrutura do Código
@@ -400,12 +619,17 @@ specs/
 ├── internal/
 │   ├── cli/              # Parser, roteamento
 │   ├── commands/         # Comandos
-│   ├── services/         # Lógica de negócio
-│   ├── adapters/         # I/O abstrato
-│   └── config/           # Configuração
-├── pkg/                  # Código exportável
-├── testdata/             # Arquivos de teste
-└── specs/                # Especificações do projeto
+│   ├── services/        # Lógica de negócio
+│   │   ├── config/      # Serviço de configuração
+│   │   ├── validator/   # Validação de specs
+│   │   ├── lister/      # Listagem de specs
+│   │   ├── checker/     # Verificação estrutural
+│   │   ├── viewer/      # Dashboard
+│   │   └── init/        # Inicialização de projetos
+│   ├── adapters/        # I/O abstrato
+│   └── templates/       # Templates de arquivos
+├── specs/               # Especificações do projeto
+└── boilerplate/         # Templates para novos projetos
 ```
 
 ## Compatibilidade
@@ -433,13 +657,28 @@ Este projeto segue metodologia SDD. Para contribuir:
 6. Marque checklist da spec como completo
 7. Abra Pull Request
 
+### Convenções de Commit
+
+Este projeto usa [Conventional Commits](https://www.conventionalcommits.org/):
+
+```
+feat: adiciona nova funcionalidade
+fix: corrige bug
+docs: atualiza documentação
+style: formatação de código
+refactor: refatoração
+test: adiciona testes
+chore: tarefas de manutenção
+```
+
 ## Licença
 
-MIT
+MIT License - veja [LICENSE](./LICENSE) para detalhes.
 
 ## Referências
 
 - [Go Documentation](https://go.dev/doc/)
+- [Conventional Commits](https://www.conventionalcommits.org/)
 - Arquitetura e padrões: `specs/00-architecture.spec.md`
 - Stack técnica: `specs/00-stack.spec.md`
 - Contexto global: `specs/00-global-context.spec.md`

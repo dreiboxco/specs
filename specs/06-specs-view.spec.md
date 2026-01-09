@@ -260,23 +260,23 @@ Esta especificação define o comando `specs view` para exibir um dashboard inte
 
 ## 8. Critérios de Aceite
 
-- [ ] Comando `specs view` exibe dashboard quando executado sem argumentos
-- [ ] Comando `specs view [diretório]` exibe dashboard de diretório específico
-- [ ] Dashboard exibe seção Summary com todas as estatísticas (specs, requirements, progresso)
-- [ ] Dashboard exibe seção Specs em Progresso com barras de progresso visuais
-- [ ] Dashboard exibe seção Specs Completas com ícones de checkmark
-- [ ] Dashboard exibe seção Specifications com contagem de requirements por spec
-- [ ] Barras de progresso são proporcionais ao percentual de completude
-- [ ] Percentuais são calculados corretamente (itens marcados / 6)
-- [ ] Total de requirements é calculado corretamente (soma de todos)
-- [ ] Progresso geral é calculado corretamente (soma de itens / total possível)
-- [ ] Comando retorna código 0 em caso de sucesso
-- [ ] Comando retorna código 1 para erros de I/O
-- [ ] Comando retorna código 2 para erros de input inválido
-- [ ] Comando `specs view --help` exibe ajuda do comando
-- [ ] Dashboard funciona com specs sem seção de requisitos (conta como 0)
-- [ ] Dashboard funciona com specs com checklist inválido (trata como incompleta)
-- [ ] Formatação é legível em terminais de diferentes larguras
+- [x] Comando `specs view` exibe dashboard quando executado sem argumentos
+- [x] Comando `specs view [diretório]` exibe dashboard de diretório específico
+- [x] Dashboard exibe seção Summary com todas as estatísticas (specs, requirements, progresso)
+- [x] Dashboard exibe seção Specs em Progresso com barras de progresso visuais
+- [x] Dashboard exibe seção Specs Completas com ícones de checkmark
+- [x] Dashboard exibe seção Specifications com contagem de requirements por spec
+- [x] Barras de progresso são proporcionais ao percentual de completude
+- [x] Percentuais são calculados corretamente (itens marcados / 6)
+- [x] Total de requirements é calculado corretamente (soma de todos)
+- [x] Progresso geral é calculado corretamente (soma de itens / total possível)
+- [x] Comando retorna código 0 em caso de sucesso
+- [x] Comando retorna código 1 para erros de I/O
+- [x] Comando retorna código 2 para erros de input inválido
+- [x] Comando `specs view --help` exibe ajuda do comando
+- [x] Dashboard funciona com specs sem seção de requisitos (conta como 0)
+- [x] Dashboard funciona com specs com checklist inválido (trata como incompleta)
+- [x] Formatação é legível em terminais de diferentes larguras
 
 ## 9. Testes
 
@@ -368,9 +368,9 @@ Esta especificação define o comando `specs view` para exibir um dashboard inte
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?

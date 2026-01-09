@@ -259,20 +259,20 @@ Esta especificação define o comando `specs validate` para validar especificaç
 
 ## 8. Critérios de Aceite
 
-- [ ] Comando `specs validate` valida todas as specs em `specs/` quando executado sem argumentos
-- [ ] Comando `specs validate [arquivo]` valida arquivo único especificado
-- [ ] Comando `specs validate [diretório]` valida todas as specs no diretório recursivamente
-- [ ] Comando detecta seções obrigatórias faltando e reporta como erro
-- [ ] Comando valida formato do checklist (6 itens, formato correto)
-- [ ] Comando identifica specs completas (6/6 itens marcados) e incompletas (< 6 itens)
-- [ ] Comando exibe relatório com resumo (total, completas, incompletas, com erros)
-- [ ] Comando retorna código 0 quando todas as specs são válidas (mesmo que incompletas)
-- [ ] Comando retorna código 1 quando há specs com erros de formato
-- [ ] Comando retorna código 2 para erros de input inválido
-- [ ] Comando `specs validate --help` exibe ajuda do comando
-- [ ] Comando valida apenas arquivos com extensão `.spec.md`
-- [ ] Comando processa arquivos em paralelo quando possível (performance)
-- [ ] Comando valida encoding UTF-8 e reporta erros de encoding
+- [x] Comando `specs validate` valida todas as specs em `specs/` quando executado sem argumentos
+- [x] Comando `specs validate [arquivo]` valida arquivo único especificado
+- [x] Comando `specs validate [diretório]` valida todas as specs no diretório recursivamente
+- [x] Comando detecta seções obrigatórias faltando e reporta como erro
+- [x] Comando valida formato do checklist (6 itens, formato correto)
+- [x] Comando identifica specs completas (6/6 itens marcados) e incompletas (< 6 itens)
+- [x] Comando exibe relatório com resumo (total, completas, incompletas, com erros)
+- [x] Comando retorna código 0 quando todas as specs são válidas (mesmo que incompletas)
+- [x] Comando retorna código 1 quando há specs com erros de formato
+- [x] Comando retorna código 2 para erros de input inválido
+- [x] Comando `specs validate --help` exibe ajuda do comando
+- [x] Comando valida apenas arquivos com extensão `.spec.md`
+- [x] Comando processa arquivos em paralelo quando possível (performance)
+- [x] Comando valida encoding UTF-8 e reporta erros de encoding
 
 ## 9. Testes
 
@@ -352,9 +352,9 @@ Esta especificação define o comando `specs validate` para validar especificaç
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?

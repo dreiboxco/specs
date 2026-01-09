@@ -13,6 +13,7 @@ type FileSystem interface {
 	MkdirAll(path string, perm os.FileMode) error
 	Stat(path string) (os.FileInfo, error)
 	Getwd() (string, error)
+	Walk(root string, walkFn filepath.WalkFunc) error
 }
 
 // fileSystem implementa FileSystem usando os padrão
@@ -54,4 +55,8 @@ func (fs *fileSystem) GetExecutablePath() (string, error) {
 		return "", err
 	}
 	return filepath.EvalSymlinks(exe)
+}
+
+func (fs *fileSystem) Walk(root string, walkFn filepath.WalkFunc) error {
+	return filepath.Walk(root, walkFn)
 }

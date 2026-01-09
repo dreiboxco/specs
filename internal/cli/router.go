@@ -39,6 +39,9 @@ func (r *Router) Run(args []string) int {
 	case "init":
 		initCmd := commands.NewInitCommand(r.fs)
 		return initCmd.Execute(cmdArgs)
+	case "validate":
+		validateCmd := commands.NewValidateCommand(r.fs)
+		return validateCmd.Execute(cmdArgs)
 	case "help", "--help", "-h":
 		r.printHelp()
 		return 0
@@ -57,6 +60,7 @@ func (r *Router) printUsage() {
 	fmt.Println()
 	fmt.Println("Comandos:")
 	fmt.Println("  init       Inicializa um novo projeto SDD")
+	fmt.Println("  validate   Valida specs contra checklist formal")
 	fmt.Println("  version    Exibe a versão atual")
 	fmt.Println("  help       Exibe ajuda")
 	fmt.Println()

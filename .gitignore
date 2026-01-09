@@ -29,4 +29,8 @@ Thumbs.db
 dist/
 build/
 
+# Ignorar binário specs (mas não specs/)
 specs
+!/specs/
+!/specs/*.spec.md
+!/specs/*.md

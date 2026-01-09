@@ -47,6 +47,19 @@
 
 ## Guardrails de dependências
 - Evitar adicionar dependências novas. Se inevitável, justificar na spec ou em ADR antes de incluir.
+- **Antes de adicionar dependência:**
+  - Verificar se funcionalidade pode ser implementada sem dependência externa
+  - Avaliar: tamanho, manutenção, licença, compatibilidade
+  - Criar ADR justificando a dependência
+  - Verificar vulnerabilidades conhecidas
+- **Dependências permitidas:**
+  - Bibliotecas padrão da linguagem (preferir)
+  - Bibliotecas amplamente utilizadas e mantidas
+  - Evitar dependências que adicionam > 1MB ao binário final
+- **Versionamento:**
+  - Fixar versões major (ex: `v1.2.3` não `^v1.2.3`)
+  - Atualizar dependências regularmente (security patches)
+  - Documentar atualizações em changelog
 
 ## UX de CLI
 - Mensagens curtas e acionáveis.
@@ -62,6 +75,18 @@
 ## Observabilidade e NFRs
 - `--debug` opcional para logs verbosos quando previsto na spec.
 - Seguir metas de latência/portabilidade da spec; preferir binário único se a stack permitir.
+- **Níveis de log:**
+  - ERROR: Erros que impedem operação
+  - WARN: Situações anômalas mas recuperáveis
+  - INFO: Eventos importantes do fluxo (opcional, usar com parcimônia)
+  - DEBUG: Detalhes para troubleshooting (apenas com `--debug`)
+- **Estrutura de logs:**
+  - Formato estruturado quando possível (JSON em modo debug)
+  - Incluir contexto: comando, operação, caminhos (sem dados sensíveis)
+  - Correlação: request-id ou operation-id quando aplicável
+- **Métricas:**
+  - Documentar métricas importantes na spec
+  - Considerar exposição de métricas (Prometheus, etc.) para projetos grandes
 
 ## Instalação e auto-update
 - Seguir estratégia descrita na arquitetura (ex.: `curl | sh`, checksum/assinatura, rollback seguro).
@@ -70,6 +95,20 @@
 ## Testes e critérios de aceite
 - Gerar/rodar testes previstos em cada spec (unidade, integração, e2e/instalador).
 - Validar critérios de aceite antes de concluir a tarefa.
+- **Estratégia de testes:**
+  - Testes unitários: isolar dependências com mocks
+  - Testes de integração: usar testcontainers ou fixtures quando necessário
+  - Testes E2E: apenas para fluxos críticos
+  - Testes de performance: para operações que têm requisitos de latência
+- **Organização:**
+  - Testes no mesmo pacote (`*_test.go`)
+  - Testes de integração: usar build tags (`//go:build integration`)
+  - Fixtures: organizar em `testdata/` por funcionalidade
+  - Mocks: gerar quando possível, manter atualizados
+- **Cobertura:**
+  - Mínimo 80% de cobertura para código novo
+  - Manter cobertura existente ao refatorar
+  - Documentar casos de teste complexos
 
 ## Migração / rollback
 - Qualquer mudança de estado/local/config requer plano de migração e rollback na spec.
@@ -103,6 +142,30 @@
   - Arquivos de configuração com comentários (ex.: `.goreleaser.yml`, `.github/workflows/*.yml`)
   - Comentários inline no código
 - **Se houver documentação dispersa em outros arquivos, consolidar no `README.md` e remover os arquivos separados.**
+
+## Versionamento e Build
+
+- **Incremento automático de versão:**
+  - Durante build de release, versão deve ser incrementada automaticamente no arquivo `VERSION`
+  - Incremento padrão: PATCH (0.0.1 → 0.0.2)
+  - Arquivo `VERSION` deve ser atualizado antes do build
+  - Versão deve seguir formato semântico (MAJOR.MINOR.PATCH)
+
+- **Criação de tags Git:**
+  - Após incremento de versão, tag Git deve ser criada automaticamente
+  - Formato da tag: `v{MAJOR}.{MINOR}.{PATCH}` (ex.: `v0.0.2`)
+  - Tag deve ser criada localmente e enviada para repositório remoto
+  - Mensagem da tag: "Release v{versão}"
+
+- **Integração CI/CD:**
+  - GitHub Actions deve ser acionado automaticamente quando tag é criada
+  - Workflow deve executar build para todas as plataformas alvo
+  - Workflow deve criar release no GitHub com artefatos e checksums SHA256
+
+- **Comando de versão:**
+  - Comando de versão deve exibir versão atual do CLI
+  - Versão deve ser lida do arquivo `VERSION` ou injetada durante build
+  - Detalhes completos na spec correspondente
 
 ## Gitflow e Conventional Commits
 - **O projeto utiliza Gitflow como estratégia de branching:**
@@ -193,3 +256,118 @@
   - Comando de verificação - Verifica consistência estrutural (formato, numeração, links, referências)
   - Comando de listagem - Lista todas as specs com status (completa/incompleta)
 
+## Refatoração e Manutenção de Código Legado
+- **Antes de refatorar código existente:**
+  - Verificar se há spec relacionada e se a refatoração altera comportamento
+  - Se alterar comportamento funcional, criar/atualizar spec primeiro
+  - Se for apenas melhoria técnica (performance, legibilidade), documentar em comentário ou ADR
+- **Código legado sem spec:**
+  - Ao encontrar código sem spec correspondente, criar spec retroativamente antes de modificar
+  - Documentar comportamento atual na spec antes de refatorar
+- **Refatoração incremental:**
+  - Preferir refatorações pequenas e incrementais
+  - Manter compatibilidade durante refatoração (não quebrar APIs existentes)
+  - Testes devem passar antes e depois da refatoração
+- **Complexidade e tamanho:**
+  - Complexidade ciclomática: manter funções simples (< 15)
+  - Tamanho de arquivos: preferir < 300 linhas, considerar divisão se > 500
+  - Tamanho de funções: preferir < 50 linhas, considerar divisão se > 100
+
+## Architecture Decision Records (ADRs)
+- **Quando criar ADR:**
+  - Decisões arquiteturais significativas que afetam múltiplos módulos
+  - Escolha de bibliotecas/frameworks externos
+  - Mudanças em padrões estabelecidos
+  - Decisões que podem ser questionadas no futuro
+- **Formato:**
+  - Localização: `docs/adr/` ou `specs/adr/`
+  - Numeração sequencial: `ADR-001-decisao.md`
+  - Estrutura: Contexto, Decisão, Consequências, Alternativas consideradas
+- **Integração com specs:**
+  - ADRs podem referenciar specs e vice-versa
+  - Decisões técnicas detalhadas devem estar em ADRs, não em specs de funcionalidade
+
+## Code Review e Qualidade
+- **Antes de solicitar review:**
+  - Todos os testes passando localmente
+  - Checklist da spec marcado (se aplicável)
+  - Código formatado e sem warnings de linter
+  - README atualizado se necessário
+- **Padrões de qualidade:**
+  - Complexidade ciclomática: manter funções simples (< 15)
+  - Tamanho de arquivos: preferir < 300 linhas, considerar divisão se > 500
+  - Cobertura de testes: mínimo 80% para código novo
+  - Documentação: funções públicas devem ter comentários GoDoc
+- **Revisão de código:**
+  - Focar em: correção, clareza, testabilidade, manutenibilidade
+  - Verificar se segue padrões arquiteturais definidos
+  - Garantir que testes cobrem casos de borda
+
+## Performance e Otimização
+- **Otimização prematura:**
+  - Não otimizar sem métricas que justifiquem
+  - Medir antes e depois de otimizações
+  - Documentar trade-offs em ADR se significativo
+- **Quando otimizar:**
+  - Performance abaixo das metas definidas na spec
+  - Problemas identificados em produção
+  - Refatoração que melhora legibilidade E performance
+- **Profiling:**
+  - Usar ferramentas de profiling antes de otimizar
+  - Documentar resultados em comentários ou ADR
+
+## Deprecação de Features
+- **Processo de deprecação:**
+  1. Atualizar spec marcando feature como deprecated
+  2. Adicionar aviso no código e CLI (mensagem de deprecation)
+  3. Documentar alternativa recomendada
+  4. Manter compatibilidade por pelo menos 2 versões MAJOR
+  5. Remover apenas em nova versão MAJOR
+- **Comunicação:**
+  - Changelog deve listar features deprecated
+  - README deve documentar mudanças
+  - Mensagens de deprecation devem ser claras e acionáveis
+
+## Breaking Changes
+- **Processo para breaking changes:**
+  1. Criar spec documentando a mudança e justificativa
+  2. Planejar migração e compatibilidade temporária
+  3. Comunicar em changelog e release notes
+  4. Incrementar versão MAJOR
+  5. Fornecer guia de migração quando aplicável
+- **Compatibilidade:**
+  - Manter compatibilidade com versão anterior quando possível
+  - Período de transição: suportar ambos os formatos temporariamente
+  - Documentar data de remoção de compatibilidade
+
+## Documentação de Código
+- **Comentários e documentação:**
+  - Funções públicas: sempre documentar com GoDoc
+  - Funções complexas: explicar lógica não óbvia
+  - Exemplos de uso: incluir em GoDoc quando útil
+  - TODOs: incluir issue/spec número quando aplicável
+- **APIs internas:**
+  - Interfaces devem ter comentários explicando contrato
+  - Structs complexas devem ter comentários sobre campos importantes
+  - Algoritmos não triviais devem ter comentários explicativos
+
+## Tratamento de Erros
+- **Estratégia de erros:**
+  - Erros devem ser tipados quando possível (criar tipos de erro específicos)
+  - Mensagens de erro devem ser acionáveis e incluir contexto
+  - Não usar panic exceto para erros de programação (nil pointer, etc.)
+  - Erros esperados (validação, I/O) devem retornar error, não panic
+- **Propagação:**
+  - Adicionar contexto ao propagar erros (usar `fmt.Errorf` com `%w`)
+  - Logar erros apenas na camada mais externa (commands)
+  - Services não devem logar, apenas retornar erros
+
+## Escalabilidade e Organização
+- **Quando o projeto cresce:**
+  - Se diretório `internal/services/` tiver > 10 serviços: considerar subdiretórios por domínio
+  - Se arquivo > 500 linhas: dividir em múltiplos arquivos mantendo coesão
+  - Se comando > 300 linhas: extrair lógica para serviços
+- **Organização por domínio (quando necessário):**
+  - Estrutura alternativa: `internal/{domain}/` (ex: `internal/specs/`, `internal/config/`)
+  - Manter separação commands/services/adapters dentro de cada domínio
+  - Evitar circular dependencies entre domínios

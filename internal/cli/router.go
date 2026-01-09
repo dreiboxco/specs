@@ -54,6 +54,9 @@ func (r *Router) Run(args []string) int {
 	case "config":
 		configCmd := commands.NewConfigCommand(r.fs)
 		return configCmd.Execute(cmdArgs)
+	case "update":
+		updateCmd := commands.NewUpdateCommand(r.fs)
+		return updateCmd.Execute(cmdArgs)
 	case "help", "--help", "-h":
 		r.printHelp()
 		return 0
@@ -72,6 +75,7 @@ func (r *Router) printUsage() {
 	fmt.Println()
 	fmt.Println("Comandos:")
 	fmt.Println("  init       Inicializa um novo projeto SDD")
+	fmt.Println("  update     Atualiza templates e arquivos base do projeto")
 	fmt.Println("  list       Lista todas as specs com status")
 	fmt.Println("  validate   Valida specs contra checklist formal")
 	fmt.Println("  check      Verifica consistência estrutural de specs")

@@ -651,8 +651,8 @@ Este projeto segue metodologia SDD. Para contribuir:
 
 ### Processo de Contribuição
 
-1. Consulte `BACKLOG.md` para ver specs pendentes
-2. Escolha uma spec para implementar
+1. Consulte as specs em `specs/` para ver funcionalidades disponíveis
+2. Escolha uma spec para implementar (verifique se já está implementada)
 3. Crie branch `feature/{numero}-{nome-sem-extensao}`
 4. Implemente conforme a spec
 5. Execute testes e validações

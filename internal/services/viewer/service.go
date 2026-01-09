@@ -88,17 +88,22 @@ func (s *Service) View(opts ViewOptions) (*DashboardResult, error) {
 	}
 
 	result := &DashboardResult{
-		TotalSpecs: len(specFiles),
-		Specs:      make([]SpecStats, 0, len(specFiles)),
+		Specs: make([]SpecStats, 0, len(specFiles)),
 	}
 
-	// Processar cada spec
+	// Processar cada spec (excluindo templates)
 	totalMarkedItems := 0
 	totalPossibleItems := 0
 
 	for _, file := range specFiles {
+		// Excluir specs de template
+		if s.isTemplateSpec(file) {
+			continue
+		}
+
 		stats := s.getSpecStats(file, path)
 		result.Specs = append(result.Specs, stats)
+		result.TotalSpecs++
 
 		result.TotalRequirements += stats.Requirements
 		totalMarkedItems += stats.MarkedItems
@@ -227,4 +232,21 @@ func (s *Service) countRequirements(content string) int {
 	}
 
 	return count
+}
+
+// isTemplateSpec verifica se uma spec é de template e deve ser excluída
+func (s *Service) isTemplateSpec(filePath string) bool {
+	fileName := filepath.Base(filePath)
+	
+	// Excluir specs com numeração 00-* (templates base)
+	if strings.HasPrefix(fileName, "00-") {
+		return true
+	}
+	
+	// Excluir template-default.spec.md
+	if fileName == "template-default.spec.md" {
+		return true
+	}
+	
+	return false
 }

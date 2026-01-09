@@ -18,17 +18,19 @@ Esta especificação define o comando `specs view` para exibir um dashboard inte
   - Barras de progresso visuais para specs incompletas
   - Contagem de requirements por spec (extraída de seções "Requisitos Funcionais")
   - Formatação visual e legível
+  - Exclusão automática de specs de template (00-*.spec.md e template-default.spec.md) do dashboard
   - Fora de escopo: atualização em tempo real, modo interativo com navegação, exportação para outros formatos (JSON futuro), gráficos avançados, histórico de mudanças
 
 ## 2. Requisitos Funcionais
 
 - **RF01 - Seção Summary:**
-  - Exibir total de specifications encontradas
-  - Exibir total de requirements (contados de todas as specs)
-  - Exibir número de specs em progresso (incompletas)
-  - Exibir número de specs completas
-  - Calcular e exibir progresso geral (percentual de itens do checklist marcados)
+  - Exibir total de specifications encontradas (excluindo specs de template)
+  - Exibir total de requirements (contados de todas as specs, excluindo templates)
+  - Exibir número de specs em progresso (incompletas, excluindo templates)
+  - Exibir número de specs completas (excluindo templates)
+  - Calcular e exibir progresso geral (percentual de itens do checklist marcados, excluindo templates)
   - Formatar números de forma destacada (negrito ou cor)
+  - Excluir automaticamente specs de template (00-*.spec.md e template-default.spec.md) das estatísticas
 
 - **RF02 - Seção Specs em Progresso:**
   - Listar todas as specs incompletas (< 6 itens do checklist marcados)
@@ -54,14 +56,24 @@ Esta especificação define o comando `specs view` para exibir um dashboard inte
 - **RF05 - Cálculo de Requirements:**
   - Extrair seção "Requisitos Funcionais" de cada spec
   - Contar itens de requisitos (RF01, RF02, RF03, etc.)
-  - Agregar total de requirements de todas as specs
+  - Agregar total de requirements de todas as specs (excluindo templates)
   - Tratar casos onde spec não tem seção de requisitos (contar como 0)
+  - Excluir specs de template (00-*.spec.md e template-default.spec.md) da contagem
 
 - **RF06 - Cálculo de Progresso:**
-  - Para cada spec, contar itens do checklist marcados (0-6)
+  - Para cada spec (excluindo templates), contar itens do checklist marcados (0-6)
   - Calcular progresso individual (itens marcados / 6)
-  - Calcular progresso geral (soma de todos os itens marcados / soma de todos os itens possíveis)
+  - Calcular progresso geral (soma de todos os itens marcados / soma de todos os itens possíveis, excluindo templates)
   - Exibir progresso em formato "X/Y (Z% complete)"
+  - Excluir specs de template (00-*.spec.md e template-default.spec.md) do cálculo de progresso
+
+- **RF07 - Exclusão de Specs de Template:**
+  - Identificar e excluir automaticamente specs de template do dashboard
+  - Excluir specs com numeração 00-* (00-global-context.spec.md, 00-architecture.spec.md, 00-stack.spec.md)
+  - Excluir template-default.spec.md
+  - Não exibir specs de template em nenhuma seção do dashboard (Summary, Specs em Progresso, Specs Completas, Specifications)
+  - Não incluir specs de template em cálculos de estatísticas (total, requirements, progresso)
+  - Justificativa: Specs de template são base do projeto e não representam funcionalidades a serem implementadas
 
 ## 3. Contratos e Interfaces
 
@@ -246,6 +258,7 @@ Esta especificação define o comando `specs view` para exibir um dashboard inte
   - Reutiliza lógica de validação (não duplica código)
   - Não modifica arquivos (apenas leitura)
   - Barras de progresso têm largura fixa (ex.: 10 caracteres)
+  - Exclui automaticamente specs de template (00-*.spec.md e template-default.spec.md) de todas as estatísticas e exibições
 
 - **Convenções:**
   - Ordenação de specs: Por numeração (00, 01, 02, etc.)
@@ -277,6 +290,8 @@ Esta especificação define o comando `specs view` para exibir um dashboard inte
 - [x] Dashboard funciona com specs sem seção de requisitos (conta como 0)
 - [x] Dashboard funciona com specs com checklist inválido (trata como incompleta)
 - [x] Formatação é legível em terminais de diferentes larguras
+- [x] Dashboard exclui automaticamente specs de template (00-*.spec.md e template-default.spec.md) de todas as seções
+- [x] Estatísticas não incluem specs de template (total, requirements, progresso)
 
 ## 9. Testes
 

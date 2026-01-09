@@ -13,15 +13,10 @@ Este arquivo contém o backlog de especificações a serem implementadas para o 
   - Tags Git automáticas
   - CI/CD com GitHub Actions
 
-### 🔄 Em Andamento
+### ✅ Especificadas (Aguardando Implementação)
 
-_Nenhuma no momento_
-
-### 📋 Planejadas (v1)
-
-#### Prioridade Alta
-
-- [ ] **02-init.spec.md** - Inicialização de projetos SDD
+- [x] **02-init.spec.md** - Inicialização de projetos SDD
+  - **Status:** Especificada, aguardando implementação
   - **Prioridade:** Alta
   - **Dependências:** Nenhuma
   - **Estimativa:** Média
@@ -32,11 +27,12 @@ _Nenhuma no momento_
     - Criar arquivo `.cursorrules` base
     - Criar `README.md` inicial
     - Validar se já existe projeto SDD
-    - Opções de template (básico, completo, customizado)
+    - Flags: `--force`, `--with-boilerplate`
 
-- [ ] **03-specs-validate.spec.md** - Validação de specs
+- [x] **03-specs-validate.spec.md** - Validação de specs
+  - **Status:** Especificada, aguardando implementação
   - **Prioridade:** Alta
-  - **Dependências:** Nenhuma (pode usar boilerplate como referência)
+  - **Dependências:** Nenhuma
   - **Estimativa:** Alta
   - **Descrição:** Comando `specs validate [caminho]` para validar specs contra checklist
   - **Funcionalidades principais:**
@@ -45,7 +41,27 @@ _Nenhuma no momento_
     - Validação de formato e estrutura
     - Relatório de erros e warnings
     - Suporte a arquivo único ou diretório completo
-    - Output formatado (texto/JSON)
+    - Identificação de specs completas/incompletas
+
+- [x] **05-specs-check.spec.md** - Verificação de consistência estrutural
+  - **Status:** Especificada, aguardando implementação
+  - **Prioridade:** Média
+  - **Dependências:** Nenhuma
+  - **Estimativa:** Média
+  - **Descrição:** Comando `specs check [caminho]` para verificar consistência estrutural
+  - **Funcionalidades principais:**
+    - Validação de numeração sequencial
+    - Verificação de links e referências
+    - Validação de formato de nomes de arquivos
+    - Verificação de referências cruzadas entre specs
+    - Detecção de specs órfãs
+    - Validação de estrutura de diretórios
+
+### 🔄 Em Andamento
+
+_Nenhuma no momento_
+
+### 📋 Planejadas (v1)
 
 #### Prioridade Média
 
@@ -62,22 +78,28 @@ _Nenhuma no momento_
     - Filtros opcionais (apenas completas, apenas incompletas)
     - Contadores (total, completas, incompletas)
 
-- [ ] **05-specs-check.spec.md** - Verificação de consistência estrutural
+- [x] **06-specs-view.spec.md** - Dashboard de visualização
+  - **Status:** Especificada, aguardando implementação
   - **Prioridade:** Média
-  - **Dependências:** Nenhuma
+  - **Dependências:** 03-specs-validate, 04-specs-list (reutiliza lógica)
   - **Estimativa:** Média
-  - **Descrição:** Comando `specs check [caminho]` para verificar consistência
+  - **Descrição:** Comando `specs view` para exibir dashboard interativo com informações agregadas
   - **Funcionalidades principais:**
-    - Validação de numeração sequencial
-    - Verificação de links e referências
-    - Validação de formato de nomes de arquivos
-    - Verificação de referências cruzadas entre specs
-    - Detecção de specs órfãs
-    - Validação de estrutura de diretórios
+    - Dashboard com seções organizadas (Summary, Specs em Progresso, Specs Completas, Specifications)
+    - Estatísticas agregadas (total de specs, requirements, progresso)
+    - Barras de progresso visuais para specs incompletas
+    - Contagem de requirements por spec
+    - Formatação visual e legível
+
+### 🔄 Em Andamento
+
+_Nenhuma no momento_
+
+### 📋 Planejadas (v1)
 
 #### Prioridade Baixa / Opcional
 
-- [ ] **06-config.spec.md** - Sistema de configuração
+- [ ] **07-config.spec.md** - Sistema de configuração
   - **Prioridade:** Baixa (pode ser integrado em outras specs)
   - **Dependências:** Nenhuma
   - **Estimativa:** Baixa
@@ -137,12 +159,13 @@ _Nenhuma no momento_
 
 ### Ordem Recomendada de Implementação
 
-1. ✅ **01-version-control** - COMPLETO
-2. 🔜 **02-init** - Permite criar novos projetos
-3. 🔜 **03-specs-validate** - Validação essencial
-4. 🔜 **04-specs-list** - Visibilidade do status
-5. 🔜 **05-specs-check** - Consistência estrutural
-6. 🔜 **06-config** - Pode ser feito incrementalmente
+1. ✅ **01-version-control** - COMPLETO (implementado)
+2. 📝 **02-init** - ESPECIFICADA (aguardando implementação)
+3. 📝 **03-specs-validate** - ESPECIFICADA (aguardando implementação)
+4. 📝 **04-specs-list** - ESPECIFICADA (aguardando implementação)
+5. 📝 **05-specs-check** - ESPECIFICADA (aguardando implementação)
+6. 📝 **06-specs-view** - ESPECIFICADA (aguardando implementação)
+7. 🔜 **07-config** - A ESPECIFICAR (pode ser feito incrementalmente)
 
 ## Notas de Implementação
 
@@ -162,14 +185,17 @@ _Nenhuma no momento_
 
 ## Métricas de Progresso
 
-- **Total de specs v1:** 6
-- **Implementadas:** 1 (16.7%)
-- **Pendentes:** 5 (83.3%)
-- **Prioridade alta:** 2
-- **Prioridade média:** 2
-- **Prioridade baixa:** 1
+- **Total de specs v1:** 7
+- **Implementadas:** 1 (14.3%)
+- **Especificadas (aguardando implementação):** 5 (71.4%)
+- **A especificar:** 1 (14.3%)
+- **Prioridade alta:** 2 (ambas especificadas)
+- **Prioridade média:** 3 (todas especificadas)
+- **Prioridade baixa:** 1 (a especificar)
 
 ## Atualizações
 
 - **2024-01-07:** Backlog criado
 - **2024-01-07:** Spec 01-version-control implementada e completa
+- **2024-01-07:** Specs 02-init, 03-specs-validate, 04-specs-list e 05-specs-check especificadas
+- **2024-01-07:** Spec 06-specs-view especificada (dashboard de visualização)

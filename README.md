@@ -7,7 +7,7 @@
 <p align="center">Spec-driven development CLI for managing SDD projects.</p>
 
 <p align="center">
-  <a href="https://github.com/dreibox/specs/actions"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/dreibox/specs/ci.yml?style=flat-square" /></a>
+  <a href="https://github.com/dreibox/specs/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/dreibox/specs/ci.yml?style=flat-square" /></a>
   <a href="https://golang.org/"><img alt="Go version" src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat-square&logo=go" /></a>
   <a href="./LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" /></a>
   <a href="https://conventionalcommits.org"><img alt="Conventional Commits" src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square" /></a>
@@ -31,7 +31,7 @@
 
 ## Instalação
 
-### Via GitHub Releases (Recomendado)
+### Via GitHub Releases
 
 ```bash
 # Download do binário para sua plataforma
@@ -54,6 +54,8 @@ sudo mv specs /usr/local/bin/
 # Verificar instalação
 specs version
 ```
+
+**Nota:** Releases serão disponibilizados após criar a primeira tag. Veja [SETUP.md](./SETUP.md) para instruções.
 
 ### Build Local
 
@@ -682,3 +684,4 @@ MIT License - veja [LICENSE](./LICENSE) para detalhes.
 - Arquitetura e padrões: `specs/00-architecture.spec.md`
 - Stack técnica: `specs/00-stack.spec.md`
 - Contexto global: `specs/00-global-context.spec.md`
+- Setup e CI/CD: `specs/08-ci-cd-setup.spec.md`

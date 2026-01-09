@@ -62,12 +62,22 @@ jobs:
           cd bin
           sha256sum specs-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }} > specs-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
       
+      - name: Create tar.gz archive
+        run: |
+          cd bin
+          tar -czf specs-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz \
+            specs-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }} \
+            specs-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
+          # Gerar checksum do tar.gz também
+          sha256sum specs-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz > specs-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz.sha256
+      
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: specs-${{ matrix.goos }}-${{ matrix.goarch }}
           path: |
-            bin/specs-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.suffix }}
+            bin/specs-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
+            bin/specs-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz.sha256
             bin/specs-${{ matrix.goos }}-${{ matrix.goarch }}.sha256
           retention-days: 30
   
@@ -97,8 +107,12 @@ jobs:
       - name: Prepare release assets
         run: |
           mkdir -p release
-          find artifacts -type f -name "specs-*" ! -name "*.sha256" -exec cp {} release/ \;
-          find artifacts -type f -name "*.sha256" -exec sh -c 'cat "$1" >> release/checksums.txt' _ {} \;
+          # Copiar todos os arquivos tar.gz
+          find artifacts -type f -name "*.tar.gz" -exec cp {} release/ \;
+          # Copiar checksums dos tar.gz
+          find artifacts -type f -name "*.tar.gz.sha256" -exec cp {} release/ \;
+          # Criar arquivo de checksums consolidado
+          find artifacts -type f -name "*.sha256" ! -name "*.tar.gz.sha256" -exec sh -c 'echo "$(basename $(dirname $1))/$(basename $1)" >> release/checksums.txt && cat "$1" >> release/checksums.txt && echo "" >> release/checksums.txt' _ {} \;
       
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -108,6 +122,21 @@ jobs:
           body: |
             Release ${{ steps.version.outputs.tag }}
             
+            ## Instalação
+            
+            Baixe o arquivo apropriado para sua plataforma e arquitetura:
+            
+            - **Linux (amd64)**: `specs-linux-amd64.tar.gz`
+            - **Linux (arm64)**: `specs-linux-arm64.tar.gz`
+            - **macOS (amd64)**: `specs-darwin-amd64.tar.gz`
+            - **macOS (arm64)**: `specs-darwin-arm64.tar.gz`
+            
+            ```bash
+            # Exemplo para Linux amd64
+            curl -L https://github.com/dreibox/specs/releases/download/${{ steps.version.outputs.tag }}/specs-linux-amd64.tar.gz | tar -xz
+            sudo mv specs /usr/local/bin/
+            ```
+            
             ## Checksums SHA256
             
             \`\`\`
@@ -116,4 +145,3 @@ jobs:
           files: release/*
           draft: false
           prerelease: false
-

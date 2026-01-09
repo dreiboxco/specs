@@ -56,19 +56,7 @@ _Nenhuma no momento_
 
 ### 📋 Planejadas (v1)
 
-#### Prioridade Baixa / Opcional
-
-- [ ] **07-config.spec.md** - Sistema de configuração
-  - **Prioridade:** Baixa (pode ser integrado em outras specs)
-  - **Dependências:** Nenhuma
-  - **Estimativa:** Baixa
-  - **Descrição:** Sistema de configuração XDG-compliant
-  - **Funcionalidades principais:**
-    - Configuração em `~/.config/specs/config.json`
-    - Caminho padrão para specs configurável
-    - Validação de configuração
-    - Comando para visualizar/editar configuração
-    - Valores padrão sensatos
+_Nenhuma - todas as specs v1 foram especificadas_
 
 ## Roadmap Futuro (v2+)
 
@@ -124,7 +112,8 @@ _Nenhuma no momento_
 4. ✅ **04-specs-list** - COMPLETO (implementado)
 5. ✅ **05-specs-check** - COMPLETO (implementado)
 6. ✅ **06-specs-view** - COMPLETO (implementado)
-7. 📝 **07-config** - ESPECIFICADA (aguardando implementação)
+7. ✅ **07-config** - COMPLETO (implementado)
+8. ✅ **08-ci-cd-setup** - ESPECIFICADA (workflows criados, aguardando validação)
 
 ## Notas de Implementação
 
@@ -144,13 +133,15 @@ _Nenhuma no momento_
 
 ## Métricas de Progresso
 
-- **Total de specs v1:** 7
-- **Implementadas:** 6 (85.7%)
-- **Especificadas (aguardando implementação):** 1 (14.3%)
+- **Total de specs v1:** 8
+- **Implementadas:** 7 (87.5%)
+- **Especificadas (aguardando validação):** 1 (12.5%)
 - **A especificar:** 0 (0%)
 - **Prioridade alta:** 2 (ambas implementadas)
 - **Prioridade média:** 3 (todas implementadas)
-- **Prioridade baixa:** 1 (especificada, aguardando implementação)
+- **Prioridade baixa:** 2 (ambas especificadas/implementadas)
+
+**Nota:** Todas as specs v1 foram especificadas. Este backlog será removido pois o projeto agora segue apenas as specs em `specs/`.
 
 ## Atualizações
 
@@ -158,4 +149,6 @@ _Nenhuma no momento_
 - **2024-01-07:** Spec 01-version-control implementada e completa
 - **2024-01-07:** Specs 02-init, 03-specs-validate, 04-specs-list, 05-specs-check e 06-specs-view especificadas
 - **2025-01-08:** Specs 02-init, 03-specs-validate, 04-specs-list, 05-specs-check e 06-specs-view implementadas e completas
-- **2025-01-08:** Spec 07-config especificada
+- **2025-01-08:** Spec 07-config especificada e implementada
+- **2025-01-08:** Spec 08-ci-cd-setup especificada
+- **2025-01-08:** Todas as specs v1 especificadas - BACKLOG.md será removido

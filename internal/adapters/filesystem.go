@@ -10,6 +10,9 @@ type FileSystem interface {
 	ReadFile(path string) ([]byte, error)
 	WriteFile(path string, data []byte, perm os.FileMode) error
 	Exists(path string) bool
+	MkdirAll(path string, perm os.FileMode) error
+	Stat(path string) (os.FileInfo, error)
+	Getwd() (string, error)
 }
 
 // fileSystem implementa FileSystem usando os padrão
@@ -31,6 +34,18 @@ func (fs *fileSystem) WriteFile(path string, data []byte, perm os.FileMode) erro
 func (fs *fileSystem) Exists(path string) bool {
 	_, err := os.Stat(path)
 	return err == nil
+}
+
+func (fs *fileSystem) MkdirAll(path string, perm os.FileMode) error {
+	return os.MkdirAll(path, perm)
+}
+
+func (fs *fileSystem) Stat(path string) (os.FileInfo, error) {
+	return os.Stat(path)
+}
+
+func (fs *fileSystem) Getwd() (string, error) {
+	return os.Getwd()
 }
 
 func (fs *fileSystem) GetExecutablePath() (string, error) {

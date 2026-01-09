@@ -243,20 +243,20 @@ Esta especificação define o comando `specs init` para inicializar novos projet
 
 ## 8. Critérios de Aceite
 
-- [ ] Comando `specs init` cria estrutura `specs/` com todos os templates base
-- [ ] Comando `specs init` cria arquivo `.cursorrules` na raiz
-- [ ] Comando `specs init` cria arquivo `README.md` na raiz
-- [ ] Comando `specs init` é idempotente (executar duas vezes não falha)
-- [ ] Comando `specs init` detecta projeto SDD existente e informa sem falhar
-- [ ] Comando `specs init --force` sobrescreve arquivos existentes
-- [ ] Comando `specs init --with-boilerplate` cria também diretório `boilerplate/`
-- [ ] Comando `specs init [diretório]` inicializa em diretório específico
-- [ ] Comando `specs init` retorna código 0 em caso de sucesso
-- [ ] Comando `specs init` retorna código 1 para erros de I/O
-- [ ] Comando `specs init` retorna código 2 para erros de input inválido
-- [ ] Comando `specs init --help` exibe ajuda do comando
-- [ ] Todos os arquivos criados têm permissões corretas (644 para arquivos, 755 para diretórios)
-- [ ] Templates copiados são idênticos aos templates do boilerplate interno
+- [x] Comando `specs init` cria estrutura `specs/` com todos os templates base
+- [x] Comando `specs init` cria arquivo `.cursorrules` na raiz
+- [x] Comando `specs init` cria arquivo `README.md` na raiz
+- [x] Comando `specs init` é idempotente (executar duas vezes não falha)
+- [x] Comando `specs init` detecta projeto SDD existente e informa sem falhar
+- [x] Comando `specs init --force` sobrescreve arquivos existentes
+- [x] Comando `specs init --with-boilerplate` cria também diretório `boilerplate/`
+- [x] Comando `specs init [diretório]` inicializa em diretório específico
+- [x] Comando `specs init` retorna código 0 em caso de sucesso
+- [x] Comando `specs init` retorna código 1 para erros de I/O
+- [x] Comando `specs init` retorna código 2 para erros de input inválido
+- [x] Comando `specs init --help` exibe ajuda do comando
+- [x] Todos os arquivos criados têm permissões corretas (644 para arquivos, 755 para diretórios)
+- [x] Templates copiados são idênticos aos templates do boilerplate interno
 
 ## 9. Testes
 
@@ -337,9 +337,9 @@ Esta especificação define o comando `specs init` para inicializar novos projet
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?

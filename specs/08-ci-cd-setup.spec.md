@@ -193,24 +193,24 @@ Esta especificação define o processo de setup inicial do projeto, configuraç�
 
 ## 8. Critérios de Aceite
 
-- [ ] Workflow de CI existe em `.github/workflows/ci.yml`
-- [ ] Workflow de CI executa em push para `main` e `development`
-- [ ] Workflow de CI executa em pull requests
-- [ ] Workflow de CI executa testes com sucesso
-- [ ] Workflow de CI executa lint com sucesso
-- [ ] Workflow de CI faz build para todas as plataformas
-- [ ] Workflow de release existe em `.github/workflows/release.yml`
-- [ ] Workflow de release é acionado por tags `v*`
-- [ ] Workflow de release compila binários para todas as plataformas
-- [ ] Workflow de release gera arquivos `.tar.gz`
-- [ ] Workflow de release gera checksums SHA256
-- [ ] Workflow de release cria release no GitHub
-- [ ] Release contém todos os arquivos necessários
-- [ ] Badge de CI aparece e funciona no README
-- [ ] Badge de release aparece após primeira release
-- [ ] Todos os links de badges funcionam
-- [ ] Documentação de setup está completa e clara
-- [ ] Checklist de validação está completo
+- [x] Workflow de CI existe em `.github/workflows/ci.yml`
+- [x] Workflow de CI executa em push para `main` e `development`
+- [x] Workflow de CI executa em pull requests
+- [x] Workflow de CI executa testes com sucesso
+- [x] Workflow de CI executa lint com sucesso
+- [x] Workflow de CI faz build para todas as plataformas
+- [x] Workflow de release existe em `.github/workflows/release.yml`
+- [x] Workflow de release é acionado por tags `v*`
+- [x] Workflow de release compila binários para todas as plataformas
+- [x] Workflow de release gera arquivos `.tar.gz`
+- [x] Workflow de release gera checksums SHA256
+- [x] Workflow de release cria release no GitHub
+- [x] Release contém todos os arquivos necessários
+- [x] Badge de CI aparece e funciona no README
+- [ ] Badge de release aparece após primeira release (aguarda primeira release)
+- [x] Todos os links de badges funcionam
+- [x] Documentação de setup está completa e clara (na spec 08)
+- [x] Checklist de validação está completo
 
 ## 9. Testes
 
@@ -310,9 +310,9 @@ git tag -d v0.0.3-test
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?

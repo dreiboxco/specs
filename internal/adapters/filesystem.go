@@ -14,6 +14,7 @@ type FileSystem interface {
 	Stat(path string) (os.FileInfo, error)
 	Getwd() (string, error)
 	Walk(root string, walkFn filepath.WalkFunc) error
+	ReadDir(path string) ([]os.DirEntry, error)
 }
 
 // fileSystem implementa FileSystem usando os padrão
@@ -59,4 +60,8 @@ func (fs *fileSystem) GetExecutablePath() (string, error) {
 
 func (fs *fileSystem) Walk(root string, walkFn filepath.WalkFunc) error {
 	return filepath.Walk(root, walkFn)
+}
+
+func (fs *fileSystem) ReadDir(path string) ([]os.DirEntry, error) {
+	return os.ReadDir(path)
 }

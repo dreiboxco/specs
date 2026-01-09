@@ -36,6 +36,24 @@ func (r *Router) Run(args []string) int {
 	case "version":
 		versionCmd := commands.NewVersionCommand(r.fs, r.version)
 		return versionCmd.Execute(cmdArgs)
+	case "init":
+		initCmd := commands.NewInitCommand(r.fs)
+		return initCmd.Execute(cmdArgs)
+	case "validate":
+		validateCmd := commands.NewValidateCommand(r.fs)
+		return validateCmd.Execute(cmdArgs)
+	case "list":
+		listCmd := commands.NewListCommand(r.fs)
+		return listCmd.Execute(cmdArgs)
+	case "check":
+		checkCmd := commands.NewCheckCommand(r.fs)
+		return checkCmd.Execute(cmdArgs)
+	case "view":
+		viewCmd := commands.NewViewCommand(r.fs)
+		return viewCmd.Execute(cmdArgs)
+	case "config":
+		configCmd := commands.NewConfigCommand(r.fs)
+		return configCmd.Execute(cmdArgs)
 	case "help", "--help", "-h":
 		r.printHelp()
 		return 0
@@ -53,6 +71,12 @@ func (r *Router) printUsage() {
 	fmt.Println("  specs <comando> [flags]")
 	fmt.Println()
 	fmt.Println("Comandos:")
+	fmt.Println("  init       Inicializa um novo projeto SDD")
+	fmt.Println("  list       Lista todas as specs com status")
+	fmt.Println("  validate   Valida specs contra checklist formal")
+	fmt.Println("  check      Verifica consistência estrutural de specs")
+	fmt.Println("  view       Exibe dashboard com informações agregadas")
+	fmt.Println("  config     Gerencia configuração do CLI")
 	fmt.Println("  version    Exibe a versão atual")
 	fmt.Println("  help       Exibe ajuda")
 	fmt.Println()

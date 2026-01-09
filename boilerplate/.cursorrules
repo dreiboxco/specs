@@ -104,8 +104,47 @@
   - Comentários inline no código
 - **Se houver documentação dispersa em outros arquivos, consolidar no `README.md` e remover os arquivos separados.**
 
+## Gitflow e Conventional Commits
+- **O projeto utiliza Gitflow como estratégia de branching:**
+  - `main`: branch de produção (código estável e testado)
+  - `develop`: branch de desenvolvimento (integração contínua)
+  - `feature/{numero}-{nome}`: branches para novas funcionalidades (ex.: `feature/02-init`)
+  - `release/{versao}`: branches para preparação de releases (ex.: `release/1.0.0`)
+  - `hotfix/{descricao}`: branches para correções urgentes em produção
+- **Todas as mensagens de commit devem seguir o padrão Conventional Commits:**
+  - Formato: `<tipo>(<escopo>): <descrição>`
+  - Tipos permitidos:
+    - `feat`: Nova funcionalidade (incrementa versão MINOR)
+    - `fix`: Correção de bug (incrementa versão PATCH)
+    - `docs`: Mudanças em documentação
+    - `style`: Formatação, ponto e vírgula faltando, etc (não altera código)
+    - `refactor`: Refatoração de código (não adiciona funcionalidade nem corrige bug)
+    - `perf`: Melhoria de performance
+    - `test`: Adição ou correção de testes
+    - `chore`: Mudanças em build, dependências, ferramentas auxiliares
+    - `ci`: Mudanças em CI/CD
+    - `build`: Mudanças em sistema de build ou dependências externas
+  - Escopo (opcional): área afetada (ex.: `init`, `validate`, `cli`)
+  - Descrição: curta, em português, no imperativo (ex.: "adiciona validação de diretório")
+  - Exemplos válidos:
+    - `feat(init): adiciona comando init básico`
+    - `fix(validate): corrige validação de arquivos vazios`
+    - `docs: atualiza README com instruções de instalação`
+    - `refactor(cli): simplifica estrutura de comandos`
+- **Ao gerar commits automaticamente:**
+  - Sempre usar Conventional Commits
+  - Escolher o tipo apropriado baseado nas mudanças
+  - Incluir escopo quando relevante
+  - Descrição em português, imperativo, clara e concisa
+  - Não incluir quebra de linha no título (máximo 72 caracteres)
+- **Relação com branches:**
+  - Branches `feature/*`: preferir `feat:` para novas funcionalidades
+  - Branches `hotfix/*`: usar `fix:` para correções
+  - Branches `release/*`: podem ter `feat:`, `fix:`, `chore:` conforme necessário
+  - Branch `develop`: pode ter qualquer tipo conforme o merge
+
 ## Commits automatizados
-- Quando o usuário digitar "commit" no Cursor, gerar commit com mensagem explicativa em português do Brasil do que foi feito e aplicar na branch atual correta. Confirmar que não há pendências de checklist/spec antes de commitar.
+- Quando o usuário digitar "commit" no Cursor, gerar commit seguindo **Conventional Commits** com mensagem explicativa em português do Brasil do que foi feito e aplicar na branch atual correta. Confirmar que não há pendências de checklist/spec antes de commitar.
 
 ## Commits de specs
 - **NUNCA commitar automaticamente arquivos em `specs/`** (arquivos `*.spec.md`) **após criar ou modificar uma spec**.

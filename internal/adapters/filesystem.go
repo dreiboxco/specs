@@ -55,4 +55,3 @@ func (fs *fileSystem) GetExecutablePath() (string, error) {
 	}
 	return filepath.EvalSymlinks(exe)
 }
-

@@ -1,0 +1,36 @@
+# Conventional Commits - Template de Mensagem
+#
+# Formato: <tipo>(<escopo>): <descrição>
+#
+# Tipos permitidos:
+#   feat:     Nova funcionalidade (incrementa versão MINOR)
+#   fix:      Correção de bug (incrementa versão PATCH)
+#   docs:     Mudanças em documentação
+#   style:    Formatação, ponto e vírgula faltando, etc (não altera código)
+#   refactor: Refatoração de código (não adiciona funcionalidade nem corrige bug)
+#   perf:     Melhoria de performance
+#   test:     Adição ou correção de testes
+#   chore:    Mudanças em build, dependências, ferramentas auxiliares
+#   ci:       Mudanças em CI/CD
+#   build:    Mudanças em sistema de build ou dependências externas
+#
+# Escopo (opcional): área afetada (ex.: init, validate, cli)
+#
+# Descrição: curta, em português, no imperativo
+#   - Máximo 72 caracteres
+#   - Não terminar com ponto
+#   - Usar imperativo: "adiciona", "corrige", "atualiza" (não "adicionado", "corrigido")
+#
+# Exemplos:
+#   feat(init): adiciona comando init básico
+#   fix(validate): corrige validação de arquivos vazios
+#   docs: atualiza README com instruções de instalação
+#   refactor(cli): simplifica estrutura de comandos
+#
+# <tipo>(<escopo>): <descrição>
+#
+# <corpo opcional - explicar o que e por que, não como>
+#
+# <rodapé opcional - referências a issues, breaking changes, etc>
+# Exemplo: Closes #123
+# Exemplo: BREAKING CHANGE: remove suporte para versão antiga

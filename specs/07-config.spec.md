@@ -270,23 +270,23 @@ Esta especificação define o sistema de configuração XDG-compliant para o CLI
 
 ## 8. Critérios de Aceite
 
-- [ ] Comando `specs config` exibe configuração atual quando arquivo existe
-- [ ] Comando `specs config` exibe valores padrão quando arquivo não existe
-- [ ] Comando `specs config get <chave>` retorna valor da chave específica
-- [ ] Comando `specs config set <chave> <valor>` atualiza configuração
-- [ ] Sistema cria diretório de configuração automaticamente se não existir
-- [ ] Sistema valida formato JSON ao carregar configuração
-- [ ] Sistema valida tipos de valores (string, boolean)
-- [ ] Sistema reporta erros claros para configuração inválida
-- [ ] Comandos existentes usam `specs.default_path` quando configurado
-- [ ] Dashboard respeita `specs.exclude_templates` quando configurado
-- [ ] Arquivo de configuração tem permissões 0600
-- [ ] Comando retorna código 0 em caso de sucesso
-- [ ] Comando retorna código 1 para erros de I/O
-- [ ] Comando retorna código 2 para erros de input inválido
-- [ ] Comando `specs config --help` exibe ajuda do comando
-- [ ] Sistema funciona quando `XDG_CONFIG_HOME` está definido
-- [ ] Sistema funciona quando `XDG_CONFIG_HOME` não está definido (fallback para ~/.config)
+- [x] Comando `specs config` exibe configuração atual quando arquivo existe
+- [x] Comando `specs config` exibe valores padrão quando arquivo não existe
+- [x] Comando `specs config get <chave>` retorna valor da chave específica
+- [x] Comando `specs config set <chave> <valor>` atualiza configuração
+- [x] Sistema cria diretório de configuração automaticamente se não existir
+- [x] Sistema valida formato JSON ao carregar configuração
+- [x] Sistema valida tipos de valores (string, boolean)
+- [x] Sistema reporta erros claros para configuração inválida
+- [x] Comandos existentes usam `specs.default_path` quando configurado
+- [x] Dashboard respeita `specs.exclude_templates` quando configurado
+- [x] Arquivo de configuração tem permissões 0600
+- [x] Comando retorna código 0 em caso de sucesso
+- [x] Comando retorna código 1 para erros de I/O
+- [x] Comando retorna código 2 para erros de input inválido
+- [x] Comando `specs config --help` exibe ajuda do comando
+- [x] Sistema funciona quando `XDG_CONFIG_HOME` está definido
+- [x] Sistema funciona quando `XDG_CONFIG_HOME` não está definido (fallback para ~/.config)
 
 ## 9. Testes
 
@@ -382,9 +382,9 @@ Esta especificação define o sistema de configuração XDG-compliant para o CLI
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?

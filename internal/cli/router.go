@@ -51,6 +51,9 @@ func (r *Router) Run(args []string) int {
 	case "view":
 		viewCmd := commands.NewViewCommand(r.fs)
 		return viewCmd.Execute(cmdArgs)
+	case "config":
+		configCmd := commands.NewConfigCommand(r.fs)
+		return configCmd.Execute(cmdArgs)
 	case "help", "--help", "-h":
 		r.printHelp()
 		return 0
@@ -73,6 +76,7 @@ func (r *Router) printUsage() {
 	fmt.Println("  validate   Valida specs contra checklist formal")
 	fmt.Println("  check      Verifica consistência estrutural de specs")
 	fmt.Println("  view       Exibe dashboard com informações agregadas")
+	fmt.Println("  config     Gerencia configuração do CLI")
 	fmt.Println("  version    Exibe a versão atual")
 	fmt.Println("  help       Exibe ajuda")
 	fmt.Println()

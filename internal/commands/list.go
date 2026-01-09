@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/dreibox/specs/internal/adapters"
+	configSvc "github.com/dreibox/specs/internal/services/config"
 	listerSvc "github.com/dreibox/specs/internal/services/lister"
 )
 
@@ -14,6 +15,7 @@ import (
 type ListCommand struct {
 	fs          adapters.FileSystem
 	listerSvc   *listerSvc.Service
+	configSvc   *configSvc.Service
 }
 
 // NewListCommand cria uma nova instância do ListCommand
@@ -21,6 +23,7 @@ func NewListCommand(fs adapters.FileSystem) *ListCommand {
 	return &ListCommand{
 		fs:        fs,
 		listerSvc: listerSvc.NewService(fs),
+		configSvc: configSvc.NewService(fs),
 	}
 }
 
@@ -39,9 +42,20 @@ func (c *ListCommand) Execute(args []string) int {
 		return 0
 	}
 
+	// Resolver caminho padrão se não fornecido
+	path := opts.Path
+	if path == "" {
+		resolvedPath, err := c.configSvc.ResolveDefaultPath()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "erro: %v\n", err)
+			return 1
+		}
+		path = resolvedPath
+	}
+
 	// Executar listagem
 	result, err := c.listerSvc.List(listerSvc.ListOptions{
-		Path:       opts.Path,
+		Path:       path,
 		Complete:   opts.Complete,
 		Incomplete: opts.Incomplete,
 		Errors:     opts.Errors,

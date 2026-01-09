@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/dreibox/specs/internal/adapters"
+	configSvc "github.com/dreibox/specs/internal/services/config"
 	validatorSvc "github.com/dreibox/specs/internal/services/validator"
 )
 
@@ -14,6 +15,7 @@ import (
 type ValidateCommand struct {
 	fs          adapters.FileSystem
 	validatorSvc *validatorSvc.Service
+	configSvc   *configSvc.Service
 }
 
 // NewValidateCommand cria uma nova instância do ValidateCommand
@@ -21,6 +23,7 @@ func NewValidateCommand(fs adapters.FileSystem) *ValidateCommand {
 	return &ValidateCommand{
 		fs:          fs,
 		validatorSvc: validatorSvc.NewService(fs),
+		configSvc:   configSvc.NewService(fs),
 	}
 }
 
@@ -39,9 +42,20 @@ func (c *ValidateCommand) Execute(args []string) int {
 		return 0
 	}
 
+	// Resolver caminho padrão se não fornecido
+	path := opts.Path
+	if path == "" {
+		resolvedPath, err := c.configSvc.ResolveDefaultPath()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "erro: %v\n", err)
+			return 1
+		}
+		path = resolvedPath
+	}
+
 	// Executar validação
 	result, err := c.validatorSvc.Validate(validatorSvc.ValidateOptions{
-		Path: opts.Path,
+		Path: path,
 	})
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "erro: %v\n", err)

@@ -8,12 +8,14 @@ import (
 
 	"github.com/dreibox/specs/internal/adapters"
 	checkerSvc "github.com/dreibox/specs/internal/services/checker"
+	configSvc "github.com/dreibox/specs/internal/services/config"
 )
 
 // CheckCommand implementa o comando check
 type CheckCommand struct {
 	fs          adapters.FileSystem
 	checkerSvc  *checkerSvc.Service
+	configSvc   *configSvc.Service
 }
 
 // NewCheckCommand cria uma nova instância do CheckCommand
@@ -21,6 +23,7 @@ func NewCheckCommand(fs adapters.FileSystem) *CheckCommand {
 	return &CheckCommand{
 		fs:         fs,
 		checkerSvc: checkerSvc.NewService(fs),
+		configSvc:  configSvc.NewService(fs),
 	}
 }
 
@@ -39,9 +42,20 @@ func (c *CheckCommand) Execute(args []string) int {
 		return 0
 	}
 
+	// Resolver caminho padrão se não fornecido
+	path := opts.Path
+	if path == "" {
+		resolvedPath, err := c.configSvc.ResolveDefaultPath()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "erro: %v\n", err)
+			return 1
+		}
+		path = resolvedPath
+	}
+
 	// Executar verificação
 	result, err := c.checkerSvc.Check(checkerSvc.CheckOptions{
-		Path: opts.Path,
+		Path: path,
 	})
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "erro: %v\n", err)

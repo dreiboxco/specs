@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/dreibox/specs/internal/adapters"
+	"github.com/dreibox/specs/internal/services/config"
 	"github.com/dreibox/specs/internal/services/validator"
 )
 
@@ -16,6 +17,7 @@ import (
 type Service struct {
 	fs        adapters.FileSystem
 	validator *validator.Service
+	configSvc *config.Service
 }
 
 // NewService cria uma nova instância do Service
@@ -23,6 +25,7 @@ func NewService(fs adapters.FileSystem) *Service {
 	return &Service{
 		fs:        fs,
 		validator: validator.NewService(fs),
+		configSvc: config.NewService(fs),
 	}
 }
 
@@ -91,13 +94,21 @@ func (s *Service) View(opts ViewOptions) (*DashboardResult, error) {
 		Specs: make([]SpecStats, 0, len(specFiles)),
 	}
 
-	// Processar cada spec (excluindo templates)
+	// Verificar configuração para excluir templates
+	cfg, err := s.configSvc.Load()
+	if err != nil {
+		// Em caso de erro, usar padrão (excluir templates)
+		cfg = config.DefaultConfig()
+	}
+	excludeTemplates := cfg.Specs.ExcludeTemplates
+
+	// Processar cada spec (excluindo templates se configurado)
 	totalMarkedItems := 0
 	totalPossibleItems := 0
 
 	for _, file := range specFiles {
-		// Excluir specs de template
-		if s.isTemplateSpec(file) {
+		// Excluir specs de template se configurado
+		if excludeTemplates && s.isTemplateSpec(file) {
 			continue
 		}
 

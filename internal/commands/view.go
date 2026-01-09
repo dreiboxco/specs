@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/dreibox/specs/internal/adapters"
+	configSvc "github.com/dreibox/specs/internal/services/config"
 	viewerSvc "github.com/dreibox/specs/internal/services/viewer"
 )
 
@@ -14,6 +15,7 @@ import (
 type ViewCommand struct {
 	fs          adapters.FileSystem
 	viewerSvc   *viewerSvc.Service
+	configSvc   *configSvc.Service
 }
 
 // NewViewCommand cria uma nova instância do ViewCommand
@@ -21,6 +23,7 @@ func NewViewCommand(fs adapters.FileSystem) *ViewCommand {
 	return &ViewCommand{
 		fs:        fs,
 		viewerSvc: viewerSvc.NewService(fs),
+		configSvc: configSvc.NewService(fs),
 	}
 }
 
@@ -39,9 +42,20 @@ func (c *ViewCommand) Execute(args []string) int {
 		return 0
 	}
 
+	// Resolver caminho padrão se não fornecido
+	path := opts.Path
+	if path == "" {
+		resolvedPath, err := c.configSvc.ResolveDefaultPath()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "erro: %v\n", err)
+			return 1
+		}
+		path = resolvedPath
+	}
+
 	// Executar visualização
 	result, err := c.viewerSvc.View(viewerSvc.ViewOptions{
-		Path: opts.Path,
+		Path: path,
 	})
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "erro: %v\n", err)

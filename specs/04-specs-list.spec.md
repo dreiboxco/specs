@@ -279,22 +279,22 @@ Esta especificação define o comando `specs list` para listar todas as especifi
 
 ## 8. Critérios de Aceite
 
-- [ ] Comando `specs list` lista todas as specs em `specs/` quando executado sem argumentos
-- [ ] Comando `specs list [diretório]` lista specs em diretório específico
-- [ ] Comando exibe specs ordenadas por numeração (00, 01, 02, etc.)
-- [ ] Comando identifica status de cada spec (completa/incompleta/erro)
-- [ ] Comando exibe tabela formatada com colunas (Numeração, Nome, Status)
-- [ ] Comando exibe contadores agregados (total, completas, incompletas, erros)
-- [ ] Comando `specs list --complete` lista apenas specs completas
-- [ ] Comando `specs list --incomplete` lista apenas specs incompletas
-- [ ] Comando `specs list --errors` lista apenas specs com erros
-- [ ] Comando retorna código 0 em caso de sucesso
-- [ ] Comando retorna código 1 para erros de I/O
-- [ ] Comando retorna código 2 para erros de input inválido
-- [ ] Comando `specs list --help` exibe ajuda do comando
-- [ ] Comando reutiliza lógica de validação (não duplica código)
-- [ ] Comando processa diretório recursivamente quando necessário
-- [ ] Comando exibe mensagem apropriada quando nenhuma spec é encontrada
+- [x] Comando `specs list` lista todas as specs em `specs/` quando executado sem argumentos
+- [x] Comando `specs list [diretório]` lista specs em diretório específico
+- [x] Comando exibe specs ordenadas por numeração (00, 01, 02, etc.)
+- [x] Comando identifica status de cada spec (completa/incompleta/erro)
+- [x] Comando exibe tabela formatada com colunas (Numeração, Nome, Status)
+- [x] Comando exibe contadores agregados (total, completas, incompletas, erros)
+- [x] Comando `specs list --complete` lista apenas specs completas
+- [x] Comando `specs list --incomplete` lista apenas specs incompletas
+- [x] Comando `specs list --errors` lista apenas specs com erros
+- [x] Comando retorna código 0 em caso de sucesso
+- [x] Comando retorna código 1 para erros de I/O
+- [x] Comando retorna código 2 para erros de input inválido
+- [x] Comando `specs list --help` exibe ajuda do comando
+- [x] Comando reutiliza lógica de validação (não duplica código)
+- [x] Comando processa diretório recursivamente quando necessário
+- [x] Comando exibe mensagem apropriada quando nenhuma spec é encontrada
 
 ## 9. Testes
 
@@ -386,9 +386,9 @@ Esta especificação define o comando `specs list` para listar todas as especifi
 
 ## Checklist Rápido (preencha antes de gerar código)
 
-- [ ] Requisitos estão testáveis? Entradas/saídas precisas?
-- [ ] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
-- [ ] Estados de erro e mensagens estão claros?
-- [ ] Guardrails e convenções estão escritos?
-- [ ] Critérios de aceite cobrem fluxos principais e erros?
-- [ ] Migração/rollback definidos quando há mudança de estado?
+- [x] Requisitos estão testáveis? Entradas/saídas precisas?
+- [x] Contratos de CLI/APIs têm formatos e códigos de saída definidos?
+- [x] Estados de erro e mensagens estão claros?
+- [x] Guardrails e convenções estão escritos?
+- [x] Critérios de aceite cobrem fluxos principais e erros?
+- [x] Migração/rollback definidos quando há mudança de estado?
